@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: kc666-stock-master
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    healthCheckPath: /
+    autoDeploy: true
