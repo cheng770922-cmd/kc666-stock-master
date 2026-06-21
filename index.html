@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07100d">
+  <title>KC 666 選股大師</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="rail">
+    <div class="logo">KC</div>
+    <button class="rail-item active" aria-label="市場總覽"><span>⌂</span><small>市場總覽</small></button>
+    <div class="rail-bottom"><i></i><small>資料連線</small></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div class="wordmark"><strong>666</strong><span>選股大師</span></div>
+      <div class="search-box">
+        <span>⌕</span>
+        <input id="searchInput" placeholder="輸入股票代號或名稱，查看 K 線、籌碼與新聞" autocomplete="off">
+        <kbd>⌘ K</kbd>
+        <div class="search-popover" id="searchPopover"></div>
+      </div>
+      <div class="date-pill"><i></i><div><small>資料基準</small><strong id="headerDate">載入中</strong></div></div>
+    </header>
+
+    <div class="page">
+      <section class="hero">
+        <div><p class="kicker">TAIWAN MARKET PULSE</p><h1>市場總覽</h1><p id="dataNote">正在讀取交易所最新盤後資料…</p></div>
+        <div class="source-chip">官方盤後資料 <span>TWSE・TPEx</span></div>
+      </section>
+
+      <section class="market-strip">
+        <article class="index-card"><div><small>加權指數</small><strong id="taiex">—</strong></div><span id="taiexChange">—</span></article>
+        <article><small>上漲家數</small><strong class="rise" id="upCount">—</strong><em id="upPct">—</em></article>
+        <article><small>下跌家數</small><strong class="fall" id="downCount">—</strong><em id="downPct">—</em></article>
+        <article><small>平盤家數</small><strong id="flatCount">—</strong><em id="totalCount">—</em></article>
+      </section>
+
+      <section class="panel rank-panel">
+        <header class="panel-header">
+          <div><p class="kicker">DAILY PRICE RANKING</p><h2>上市櫃漲跌幅排行</h2><p>普通股依當日漲跌幅排序，已排除 ETF、ETN、權證與無成交個股</p></div>
+          <div class="tabs" id="rankTabs"><button class="active" data-list="strong">強勢股 TOP 50</button><button data-list="weak">弱勢股 TOP 50</button></div>
+        </header>
+        <div class="table-scroll rank-scroll">
+          <table><thead><tr><th>#</th><th>股票</th><th>市場</th><th>收盤價</th><th>漲跌</th><th>漲跌幅</th><th>成交量</th><th>當日區間</th><th></th></tr></thead><tbody id="rankBody"></tbody></table>
+        </div>
+        <footer class="panel-footer"><span id="rankFooter">完整列出 1–50 名</span><span>點選任一股票開啟個股研究</span></footer>
+      </section>
+
+      <section class="panel etf-panel">
+        <header class="panel-header">
+          <div><p class="kicker">ACTIVE ETF DAILY DISCLOSURE</p><h2>主動式 ETF 持股異動</h2><p>依統一投信官方 PCF 比較最近兩次揭露持股</p></div>
+          <div class="code-fix">代號校正 <del>000403A</del> → <strong>00403A</strong></div>
+        </header>
+        <div class="etf-selector" id="etfSelector"></div>
+        <div class="etf-summary" id="etfSummary"></div>
+        <div class="table-scroll etf-scroll">
+          <table><thead><tr><th>異動</th><th>股票</th><th>最新持股</th><th>增減股數</th><th>持股權重</th></tr></thead><tbody id="etfBody"></tbody></table>
+        </div>
+      </section>
+
+      <section class="panel inst-panel">
+        <header class="panel-header">
+          <div><p class="kicker">INSTITUTIONAL CONSENSUS</p><h2>三大法人同步買超</h2><p>外資、投信、自營商於最近交易日皆為淨買超；單位：張</p></div>
+          <span class="result-count" id="instCount">—</span>
+        </header>
+        <div class="table-scroll inst-scroll">
+          <table><thead><tr><th>#</th><th>股票</th><th>收盤價</th><th>漲跌幅</th><th>外資</th><th>投信</th><th>自營商</th><th>合計</th><th></th></tr></thead><tbody id="instBody"></tbody></table>
+        </div>
+      </section>
+
+      <footer class="site-footer"><span>KC 666 選股大師</span><p id="sources">資料來源載入中…</p><small>資料僅供研究參考，不構成投資建議。</small></footer>
+    </div>
+  </main>
+
+  <div class="loading-screen" id="loading"><div class="loader-mark">KC</div><strong>同步官方市場資料</strong><span>第一次載入約需數秒</span></div>
+  <div class="backdrop" id="backdrop"></div>
+  <aside class="research-drawer" id="researchDrawer" aria-hidden="true">
+    <div class="research-loading" id="researchLoading"><div class="spinner"></div><span>載入個股資料…</span></div>
+    <div id="researchContent"></div>
+  </aside>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
